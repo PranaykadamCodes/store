@@ -23,6 +23,13 @@ export function LoginForm() {
     setLoading(true)
     setError('')
 
+    // Check if Supabase is configured
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder')) {
+      setError('Supabase is not configured. Please check SETUP.md for instructions.')
+      setLoading(false)
+      return
+    }
+
     const { error } = await signIn(email, password)
     
     if (error) {
@@ -37,6 +44,13 @@ export function LoginForm() {
   const handleGoogleSignIn = async () => {
     setLoading(true)
     setError('')
+
+    // Check if Supabase is configured
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder')) {
+      setError('Supabase is not configured. Please check SETUP.md for instructions.')
+      setLoading(false)
+      return
+    }
 
     const { error } = await signInWithGoogle()
     

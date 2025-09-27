@@ -6,8 +6,26 @@ import Link from 'next/link'
 import { AuthButtons } from '@/components/auth/auth-buttons'
 
 export default function HomePage() {
+  const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+      {/* Setup Banner */}
+      {!isSupabaseConfigured && (
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">
+          <div className="container mx-auto">
+            <div className="flex">
+              <div className="ml-3">
+                <p className="text-sm">
+                  <strong>Setup Required:</strong> To use authentication features, please configure your Supabase credentials. 
+                  See <a href="/SETUP.md" className="underline font-medium">SETUP.md</a> for instructions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-4 py-4">

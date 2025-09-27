@@ -25,6 +25,13 @@ export function SignUpForm() {
     setLoading(true)
     setError('')
 
+    // Check if Supabase is configured
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder')) {
+      setError('Supabase is not configured. Please check SETUP.md for instructions.')
+      setLoading(false)
+      return
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match')
       setLoading(false)
@@ -51,6 +58,13 @@ export function SignUpForm() {
   const handleGoogleSignIn = async () => {
     setLoading(true)
     setError('')
+
+    // Check if Supabase is configured
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder')) {
+      setError('Supabase is not configured. Please check SETUP.md for instructions.')
+      setLoading(false)
+      return
+    }
 
     const { error } = await signInWithGoogle()
     
