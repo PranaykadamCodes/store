@@ -9,6 +9,7 @@ import { Heart, Eye, ShoppingCart, Star, Package } from 'lucide-react'
 import { CatalogFilters } from '@/components/catalog-filters'
 import { SortSelector } from '@/components/sort-selector'
 import { AddToCartButton } from '@/components/add-to-cart-button'
+import { WishlistButton } from '@/components/wishlist-button'
 
 interface SearchParams {
   search?: string
@@ -254,8 +255,23 @@ function ProductCard({ product }: ProductCardProps) {
             <Package className="h-12 w-12 text-muted-foreground" />
           )}
           <div className="absolute top-2 right-2 flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button variant="ghost" size="icon" className="h-8 w-8 p-0 bg-background/80 hover:bg-background"><Heart className="h-4 w-4" /></Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8 p-0 bg-background/80 hover:bg-background"><Eye className="h-4 w-4" /></Button>
+            <WishlistButton 
+              product={product} 
+              variant="ghost" 
+              size="sm"
+              className="h-8 w-8 p-0 bg-background/80 hover:bg-background"
+            />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8 p-0 bg-background/80 hover:bg-background"
+              onClick={(e) => {
+                e.preventDefault()
+                window.open(`/catalog/${product.slug}`, '_blank')
+              }}
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </Link>

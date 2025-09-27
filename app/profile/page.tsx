@@ -85,31 +85,32 @@ export default function ProfilePage() {
 
     try {
       setLoading(true)
-      // In a real app, you'd fetch from your API
-      const mockProfile: UserProfile = {
+      
+      // Use real data from user metadata
+      const userProfile: UserProfile = {
         id: user.id,
-        fullName: user.user_metadata?.full_name || 'John Doe',
+        fullName: user.user_metadata?.name || user.user_metadata?.full_name || 'User',
         email: user.email || '',
-        phone: '+1 (555) 123-4567',
-        address: '123 Main Street',
-        city: 'New York',
-        state: 'NY',
-        zipCode: '10001',
-        country: 'United States',
+        phone: user.user_metadata?.phone || '',
+        address: user.user_metadata?.address || '',
+        city: user.user_metadata?.city || '',
+        state: user.user_metadata?.state || '',
+        zipCode: user.user_metadata?.zipCode || '',
+        country: user.user_metadata?.country || '',
         role: user.user_metadata?.role || 'customer',
         createdAt: user.created_at || new Date().toISOString(),
         avatar: user.user_metadata?.avatar_url
       }
 
-      setProfile(mockProfile)
+      setProfile(userProfile)
       setFormData({
-        fullName: mockProfile.fullName,
-        phone: mockProfile.phone || '',
-        address: mockProfile.address || '',
-        city: mockProfile.city || '',
-        state: mockProfile.state || '',
-        zipCode: mockProfile.zipCode || '',
-        country: mockProfile.country || ''
+        fullName: userProfile.fullName,
+        phone: userProfile.phone || '',
+        address: userProfile.address || '',
+        city: userProfile.city || '',
+        state: userProfile.state || '',
+        zipCode: userProfile.zipCode || '',
+        country: userProfile.country || ''
       })
     } catch (error) {
       console.error('Error fetching profile:', error)
@@ -352,6 +353,70 @@ export default function ProfilePage() {
                       value={formData.zipCode}
                       onChange={(e) => setFormData(prev => ({ ...prev, zipCode: e.target.value }))}
                       disabled={!isEditing}
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Delivery Address Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <MapPin className="h-5 w-5" />
+                  <span>Delivery Address</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="delivery-address">Address</Label>
+                    <Input
+                      id="delivery-address"
+                      value={formData.address}
+                      onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
+                      disabled={!isEditing}
+                      placeholder="Enter your delivery address"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="delivery-city">City</Label>
+                    <Input
+                      id="delivery-city"
+                      value={formData.city}
+                      onChange={(e) => setFormData(prev => ({ ...prev, city: e.target.value }))}
+                      disabled={!isEditing}
+                      placeholder="Enter your city"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="delivery-state">State/Province</Label>
+                    <Input
+                      id="delivery-state"
+                      value={formData.state}
+                      onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
+                      disabled={!isEditing}
+                      placeholder="Enter your state"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="delivery-zip">ZIP/Postal Code</Label>
+                    <Input
+                      id="delivery-zip"
+                      value={formData.zipCode}
+                      onChange={(e) => setFormData(prev => ({ ...prev, zipCode: e.target.value }))}
+                      disabled={!isEditing}
+                      placeholder="Enter your ZIP code"
+                    />
+                  </div>
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="delivery-country">Country</Label>
+                    <Input
+                      id="delivery-country"
+                      value={formData.country}
+                      onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))}
+                      disabled={!isEditing}
+                      placeholder="Enter your country"
                     />
                   </div>
                 </div>

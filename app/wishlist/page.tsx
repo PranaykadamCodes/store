@@ -124,13 +124,13 @@ export default function WishlistPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
-            <Link href="/">
+            <Link href="/catalog">
               <Button variant="ghost" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
+                Continue Shopping
               </Button>
             </Link>
-            <h1 className="text-3xl font-bold text-gray-900">My Wishlist</h1>
+            <h1 className="text-3xl font-bold text-foreground">My Wishlist</h1>
             <Badge variant="secondary" className="text-sm">
               {state.items.length} {state.items.length === 1 ? 'item' : 'items'}
             </Badge>
@@ -139,11 +139,11 @@ export default function WishlistPage() {
 
         {state.items.length === 0 ? (
           <div className="text-center py-16">
-            <Heart className="h-24 w-24 text-gray-400 mx-auto mb-6" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Your wishlist is empty</h2>
-            <p className="text-gray-600 mb-8">Start adding items you love to your wishlist.</p>
+            <Heart className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
+            <h2 className="text-2xl font-bold text-foreground mb-4">Your wishlist is empty</h2>
+            <p className="text-muted-foreground mb-8">Start adding items you love to your wishlist.</p>
             <Link href="/catalog">
-              <Button className="bg-black text-white hover:bg-gray-800">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                 Start Shopping
               </Button>
             </Link>
@@ -153,7 +153,7 @@ export default function WishlistPage() {
             {state.items.map((item) => (
               <Card key={item.id} className="group relative overflow-hidden">
                 <Link href={`/catalog/${item.product.slug}`}>
-                  <div className="aspect-square w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                  <div className="aspect-square w-full bg-muted flex items-center justify-center overflow-hidden">
                     {item.product.image_url || item.product.imageUrl ? (
                       <Image
                         src={item.product.image_url || item.product.imageUrl || ''}
@@ -163,14 +163,27 @@ export default function WishlistPage() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <Package className="h-12 w-12 text-gray-400" />
+                      <Package className="h-12 w-12 text-muted-foreground" />
                     )}
+                    <div className="absolute top-2 right-2 flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-8 w-8 p-0 bg-background/80 hover:bg-background"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          window.open(`/catalog/${item.product.slug}`, '_blank')
+                        }}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </Link>
                 
                 <div className="p-4">
                   <Link href={`/catalog/${item.product.slug}`}>
-                    <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors mb-2">
+                    <h3 className="font-semibold text-foreground hover:text-primary transition-colors mb-2">
                       {item.product.name}
                     </h3>
                   </Link>
@@ -181,11 +194,11 @@ export default function WishlistPage() {
                         <Star key={i} className={`h-4 w-4 ${i < 4 ? 'fill-current' : ''}`} />
                       ))}
                     </div>
-                    <span className="text-xs text-gray-500 ml-2">(0)</span>
+                    <span className="text-xs text-muted-foreground ml-2">(0)</span>
                   </div>
                   
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-lg font-bold text-gray-900">
+                    <span className="text-lg font-bold text-foreground">
                       ${item.product.price.toFixed(2)}
                     </span>
                   </div>
@@ -193,7 +206,7 @@ export default function WishlistPage() {
                   <div className="flex items-center space-x-2">
                     <Button
                       onClick={() => handleAddToCart(item.product)}
-                      className="flex-1 bg-black text-white hover:bg-gray-800"
+                      className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
                       size="sm"
                     >
                       <ShoppingCart className="h-4 w-4 mr-2" />
@@ -204,7 +217,7 @@ export default function WishlistPage() {
                       onClick={() => handleRemoveFromWishlist(item.product.id)}
                       variant="outline"
                       size="sm"
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
