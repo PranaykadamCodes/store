@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🛒 Full-Stack E-Commerce Store
 
 A modern, production-ready e-commerce store built with Next.js, Supabase, and Stripe. Perfect for students and developers looking to build a comprehensive portfolio project.
@@ -194,3 +195,6 @@ If you run into any issues:
 3. Ask questions in the discussions
 
 Happy coding! 🎉
+=======
+# store
+>>>>>>> 7a0f22df33514949c1d36ba64543d88d5e612faa
