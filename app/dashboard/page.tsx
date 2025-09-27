@@ -3,9 +3,7 @@
 import { useAuth } from '@/lib/auth-context'
 import { ProtectedRoute } from '@/components/auth/protected-route'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { LogOut, User, ShoppingBag, Package } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 function DashboardContent() {
@@ -17,19 +15,16 @@ function DashboardContent() {
     router.push('/')
   }
 
-  const userRole = user?.user_metadata?.role || 'customer'
-
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+      <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Welcome back, {user?.user_metadata?.name || user?.email}!
+              Dashboard
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Manage your account and orders
+              Welcome, {user?.email || 'User'}!
             </p>
           </div>
           <Button onClick={handleSignOut} variant="outline">
@@ -38,83 +33,61 @@ function DashboardContent() {
           </Button>
         </div>
 
-        {/* Role Badge */}
-        <div className="mb-8">
-          <Badge variant={userRole === 'admin' ? 'default' : 'secondary'} className="text-sm">
-            {userRole === 'admin' ? '👑 Admin' : '👤 Customer'}
-          </Badge>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-semibold mb-4">User Info:</h2>
+          <p>Email: {user?.email}</p>
+          <p>User ID: {user?.id}</p>
+          <p>Role: {user?.user_metadata?.role || 'customer'}</p>
         </div>
 
-        {/* Dashboard Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Profile</CardTitle>
-              <User className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">View Profile</div>
-              <p className="text-xs text-muted-foreground">
-                Manage your personal information
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Orders</CardTitle>
-              <ShoppingBag className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                Total orders placed
-              </p>
-            </CardContent>
-          </Card>
-
-          {userRole === 'admin' && (
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Products</CardTitle>
-                <Package className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">0</div>
-                <p className="text-xs text-muted-foreground">
-                  Products in store
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-
-        {/* Quick Actions */}
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="outline">
-              <ShoppingBag className="mr-2 h-4 w-4" />
-              Browse Products
-            </Button>
-            <Button variant="outline">
-              <User className="mr-2 h-4 w-4" />
-              Edit Profile
-            </Button>
-            {userRole === 'admin' && (
-              <Button variant="outline">
-                <Package className="mr-2 h-4 w-4" />
-                Manage Products
-              </Button>
-            )}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+            <div className="space-y-2">
+              <a 
+                href="/admin" 
+                className="block w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-center"
+              >
+                Admin Dashboard
+              </a>
+              <a 
+                href="/admin-products-bypass" 
+                className="block w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-center"
+              >
+                View Products (Bypass)
+              </a>
+              <a 
+                href="/test-products" 
+                className="block w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-center"
+              >
+                Test Products (No Auth)
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* Status Badge */}
-        <div className="fixed bottom-4 right-4">
-          <Badge variant="secondary" className="text-sm">
-            🚀 Week 2: Authentication Complete
-          </Badge>
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4">Debug Links</h3>
+            <div className="space-y-2">
+              <a 
+                href="/env-test" 
+                className="block w-full bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 text-center"
+              >
+                Environment Test
+              </a>
+              <a 
+                href="/admin/debug-products" 
+                className="block w-full bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 text-center"
+              >
+                Debug Products
+              </a>
+              <a 
+                href="/admin/direct-products" 
+                className="block w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-center"
+              >
+                Direct Products
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

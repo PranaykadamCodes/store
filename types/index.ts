@@ -26,11 +26,18 @@ export interface Product {
   categoryId?: string
   category?: Category
   imageUrl?: string
+  image_url?: string
   images?: string[]
   slug: string
   isActive: boolean
+  is_active?: boolean
+  discount?: number
+  original_price?: number
+  reviews_count?: number
   createdAt: Date
+  created_at?: string
   updatedAt: Date
+  updated_at?: string
 }
 
 export interface Order {
