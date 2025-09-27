@@ -120,9 +120,11 @@ export function Navigation() {
                   )}
                 </Button>
               </Link>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
+              <Link href="/profile">
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -198,9 +200,11 @@ export function Navigation() {
                     </Button>
                   </Link>
                 </div>
-                <Button variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </Button>
+                <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
 
               {/* User Menu for Mobile */}
@@ -209,6 +213,12 @@ export function Navigation() {
                   <div className="text-sm text-gray-600 mb-2">
                     Welcome, {user.email}
                   </div>
+                  <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start">
+                      <User className="mr-2 h-4 w-4" />
+                      Profile
+                    </Button>
+                  </Link>
                   <Link href="/dashboard" onClick={() => setIsMenuOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start">
                       <Home className="mr-2 h-4 w-4" />
