@@ -1,12 +1,26 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ShoppingCart, Star, Truck, Shield, Heart } from 'lucide-react'
+import { ShoppingCart, Star, Truck, Shield, Heart, LogIn, UserPlus } from 'lucide-react'
 import Link from 'next/link'
+import { AuthButtons } from '@/components/auth/auth-buttons'
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+      {/* Header */}
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <ShoppingCart className="h-8 w-8 text-blue-600" />
+              <span className="text-xl font-bold text-gray-900 dark:text-white">E-Commerce Store</span>
+            </div>
+            <AuthButtons />
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center space-y-8">
@@ -18,13 +32,18 @@ export default function HomePage() {
             Discover amazing products with fast delivery, secure payments, and excellent customer service.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-6">
-              <ShoppingCart className="mr-2 h-5 w-5" />
-              Start Shopping
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-              Learn More
-            </Button>
+            <Link href="/auth/signup">
+              <Button size="lg" className="text-lg px-8 py-6">
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Start Shopping
+              </Button>
+            </Link>
+            <Link href="/auth/login">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                <LogIn className="mr-2 h-5 w-5" />
+                Sign In
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -106,7 +125,7 @@ export default function HomePage() {
       {/* Status Badge */}
       <div className="fixed bottom-4 right-4">
         <Badge variant="secondary" className="text-sm">
-          🚀 Week 1: Project Setup Complete
+          🔐 Week 2: Authentication Complete
         </Badge>
       </div>
     </div>
